@@ -1,19 +1,19 @@
 use std::fs;
 use std::time::Instant;
 
-fn add_numbers(vector: &Vec<u64>) -> u64 {
+fn add_numbers(vector: &Vec<u32>) -> u64 {
     let mut x = 0;
     for number in vector.iter() {
-        x += number;
+        x += *number as u64;
     }
     x
 }
 
-fn read_numbers_from_file(filename: &str) -> Vec<u64> {
+fn read_numbers_from_file(filename: &str) -> Vec<u32> {
     let numbers = fs::read_to_string(filename).expect("Couldn't read file");
     numbers
         .lines() // Split on newlines
-        .map(|number| number.parse::<u64>().unwrap()) // Make the Iterator parse the strings into i32
+        .map(|number| number.parse::<u32>().unwrap()) // Make the Iterator parse the strings into u64
         .collect() // Make a Vector from the Iterator
 }
 
