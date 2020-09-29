@@ -1,13 +1,15 @@
+#![warn(clippy::all)]
+
 use rand::rngs;
 use rand::Rng;
 use rand::SeedableRng;
 use std::fs;
 use std::time::Instant;
 
-fn add_numbers(vector: &Vec<u32>) -> u64 {
+fn add_numbers(vector: &[u32]) -> u64 {
     let mut x = 0;
     for number in vector.iter() {
-        x += *number as u64;
+        x += u64::from(*number);
     }
     x
 }
