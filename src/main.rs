@@ -34,20 +34,20 @@ fn main() {
     const RANDOM_NUMBER_COUNT: usize = 100_000_000;
 
     // Now generate our own numbers
-    let range = rand::distributions::Uniform::new_inclusive(1, 1000);
+    let range = rand::distributions::Uniform::new_inclusive(1, 1_000_000);
 
     let now = Instant::now();
     let numbers = generate_numbers(RANDOM_NUMBER_COUNT, range);
     println!(
-        "\n\nGenerating {} random numbers took: {}μs",
+        "Generating {} random numbers took: {}s",
         RANDOM_NUMBER_COUNT,
-        now.elapsed().as_micros()
+        now.elapsed().as_micros() as f64 / 1_000_000.0
     );
 
     let now = Instant::now();
     println!("Sum is: {}", add_numbers(&numbers));
     println!(
-        "Adding all the numbers took: {}μs",
-        now.elapsed().as_micros()
+        "Adding all the numbers took: {}s",
+        now.elapsed().as_micros() as f64 / 1_000_000.0
     );
 }
