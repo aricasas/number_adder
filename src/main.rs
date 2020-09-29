@@ -6,12 +6,12 @@ use rand::SeedableRng;
 use std::fs;
 use std::time::Instant;
 
-fn add_numbers(vector: &[u32]) -> u64 {
-    let mut x = 0;
-    for number in vector.iter() {
-        x += u64::from(*number);
-    }
-    x
+fn add_numbers(list: &[u32]) -> u64 {
+    list.iter()
+        .map(
+            |number| u64::from(*number), // Convert numbers to u64
+        )
+        .sum()
 }
 
 fn _read_numbers_from_file(filename: &str) -> Vec<u32> {
