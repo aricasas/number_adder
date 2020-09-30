@@ -1,4 +1,12 @@
-#![warn(clippy::all)]
+#![warn(
+    clippy::all,
+    clippy::pedantic,
+    clippy::nursery,
+    clippy::correctness,
+    clippy::complexity,
+    clippy::perf
+)]
+#![allow(clippy::cast_precision_loss)]
 
 use rand::rngs;
 use rand::Rng;
