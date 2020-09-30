@@ -3,6 +3,7 @@
 use rand::rngs;
 use rand::Rng;
 use rand::SeedableRng;
+use rayon::prelude::*;
 use std::cmp;
 use std::fs;
 use std::thread;
@@ -16,7 +17,7 @@ fn add_numbers_not_threaded(list: &[u32]) -> u64 {
         .sum()
 }
 
-fn add_numbers(list: &[u32], max_threads: u32) -> u64 {
+fn add_numbers_manual_threads(list: &[u32], max_threads: u32) -> u64 {
     if max_threads == 0 {
         add_numbers_not_threaded(list)
     } else {
@@ -45,6 +46,12 @@ fn add_numbers(list: &[u32], max_threads: u32) -> u64 {
         }
         result
     }
+}
+
+fn add_numbers_rayon_threads(list: &[u32]) -> u64 {
+    list.par_iter()
+        .map(|number| u64::from(*number))
+        .sum::<u64>()
 }
 
 fn _read_numbers_from_file(filename: &str) -> Vec<u32> {
@@ -80,7 +87,7 @@ fn main() {
     );
 
     let now = Instant::now();
-    println!("Sum is: {}", add_numbers(&numbers, 50));
+    println!("Sum is: {}", add_numbers_manual_threads(&numbers, 50));
     println!(
         "Adding all the numbers using the threaded function took: {}s\n_____",
         now.elapsed().as_micros() as f64 / 1_000_000.0
@@ -90,6 +97,13 @@ fn main() {
     println!("Sum is: {}", add_numbers_not_threaded(&numbers));
     println!(
         "Adding all the numbers took: {}s\n_____",
+        now.elapsed().as_micros() as f64 / 1_000_000.0
+    );
+
+    let now = Instant::now();
+    println!("Sum is: {}", add_numbers_rayon_threads(&numbers));
+    println!(
+        "Adding all the numbers using rayon threads took: {}s\n_____",
         now.elapsed().as_micros() as f64 / 1_000_000.0
     );
 }

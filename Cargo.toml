@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 rand = {version="0.7.3", features=["small_rng"]}
+rayon = "1.1"
